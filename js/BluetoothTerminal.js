@@ -22,6 +22,8 @@ class BluetoothTerminal {
     this._boundHandleCharacteristicValueChanged =
         this._handleCharacteristicValueChanged.bind(this);
 
+    serviceUuid = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
+    characteristicUuid  = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
     // Configure with specified parameters.
     this.setServiceUuid(serviceUuid);
     this.setCharacteristicUuid(characteristicUuid);
@@ -129,6 +131,7 @@ class BluetoothTerminal {
    */
   receive(data) {
     // Handle incoming data.
+     
   }
 
   /**
@@ -242,6 +245,26 @@ class BluetoothTerminal {
     this._log('Requesting bluetooth device...');
 
     return navigator.bluetooth.requestDevice({
+      filters: [{
+        name: 'ESP32'
+      }],
+      optionalServices: ['6e400001-b5a3-f393-e0a9-e50e24dcca9e',
+      '6e400002-b5a3-f393-e0a9-e50e24dcca9e',
+      '6e400003-b5a3-f393-e0a9-e50e24dcca9e']
+    }).
+        then((device) => {
+          this._log('"' + device.name + '" bluetooth device selected');
+
+          this._device = device; // Remember device.
+          this._device.addEventListener('gattserverdisconnected',
+              this._boundHandleDisconnection);
+
+          return this._device;
+        });
+
+
+    /*
+    return navigator.bluetooth.requestDevice({
       filters: [{services: [this._serviceUuid]}],
     }).
         then((device) => {
@@ -253,6 +276,7 @@ class BluetoothTerminal {
 
           return this._device;
         });
+   */ 
   }
 
   /**
@@ -276,7 +300,7 @@ class BluetoothTerminal {
           return server.getPrimaryService(this._serviceUuid);
         }).
         then((service) => {
-          this._log('Service found', 'Getting characteristic...');
+          this._log('Service found', 'Getting characteristic...' + this._characteristicUuid);
 
           return service.getCharacteristic(this._characteristicUuid);
         }).

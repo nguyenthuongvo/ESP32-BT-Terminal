@@ -1,2 +1,2 @@
-cd C:\Users\sys\Documents\Projects\ESP32\ESP32_WifiConnectOverBLE_Client
-python3 -m http.server
+cd C:\Users\sys\Documents\Projects\ESP32\ESP32-Web-Bluetooth-Terminal
+python -m http.server
