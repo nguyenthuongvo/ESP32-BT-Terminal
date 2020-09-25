@@ -7,6 +7,8 @@
 #include <BLEUtils.h>
 #include <BLEServer.h>
 
+#include <BLE2902.h>
+
 // See the following for generating UUIDs:
 // https://www.uuidgenerator.net/
 
@@ -40,10 +42,19 @@ class MyCallbacks: public BLECharacteristicCallbacks {
         Serial.println("*********");
         Serial.print("New value: ");
         for (int i = 0; i < value.length(); i++)
+        {
           Serial.print(value[i]);
+          //pCharacteristic->setValue("1");
+          //pCharacteristic->notify();
+        }
 
         Serial.println();
         Serial.println("*********");
+
+        pCharacteristic->setValue("Hello");
+        pCharacteristic->notify();
+
+        //pCharacteristic->writeValue(1, 1, true);
       }
     }
 };
@@ -65,12 +76,15 @@ void setup() {
   BLECharacteristic *pCharacteristic = pService->createCharacteristic(
                                          CHARACTERISTIC_UUID,
                                          BLECharacteristic::PROPERTY_READ |
-                                         BLECharacteristic::PROPERTY_WRITE
+                                         BLECharacteristic::PROPERTY_WRITE |
+                                         BLECharacteristic::PROPERTY_NOTIFY
                                        );
 
   pCharacteristic->setCallbacks(new MyCallbacks());
+  
+  pCharacteristic->addDescriptor(new BLE2902());
 
-  pCharacteristic->setValue("R/W");
+  //pCharacteristic->setValue("R/W");
   pService->start();
 
   BLEAdvertising *pAdvertising = pServer->getAdvertising();

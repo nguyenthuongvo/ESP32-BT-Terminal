@@ -379,11 +379,17 @@ class BluetoothTerminal {
    * @private
    */
   _handleCharacteristicValueChanged(event) {
+	  
+	this._log('RECEIVED SOME DATA! ' + event.target.value);
     const value = new TextDecoder().decode(event.target.value);
+	
+	this.receive("REC val " + value);
 
     for (const c of value) {
       if (c === this._receiveSeparator) {
         const data = this._receiveBuffer.trim();
+		
+		this._log('DATA! is ' + data);
         this._receiveBuffer = '';
 
         if (data) {
