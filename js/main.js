@@ -29,21 +29,21 @@ const logToTerminal = (message, type = '') => {
 };
 
 // Obtain configured instance.
-var serviveuuid = "6E400001-B5A3-F393-E0A9-E50E24DCCA9E";
- 
-var CHARACTERISTIC_UUID_RX = "6E400002-B5A3-F393-E0A9-E50E24DCCA9E";
-var CHARACTERISTIC_UUID_TX = "6E400002-B5A3-F393-E0A9-E50E24DCCA9E";
+var serviveuuid = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
+var characteristicUuid  = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
 
-console.log("Service uuid: " + serviveuuid.toLowerCase());
-console.log("CHARACTERISTIC_UUID_RX: " + CHARACTERISTIC_UUID_RX.toLowerCase());
+//console.log("Service uuid: " + serviveuuid);
+//console.log("characteristicUuid " + characteristicUuid);
 
-const terminal = new BluetoothTerminal(serviveuuid.toLowerCase(),CHARACTERISTIC_UUID_TX.toLowerCase(),
+const terminal = new BluetoothTerminal(serviveuuid,characteristicUuid,
 '\n','\n');
 
 // Override `receive` method to log incoming data to the terminal.
 terminal.receive = function(data) {
   logToTerminal(data, 'in');
 };
+
+
 
 // Override default log method to output messages to the terminal and console.
 terminal._log = function(...messages) {
