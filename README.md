@@ -1,5 +1,7 @@
 # Changes
 
+ESP32-BLE.ino as sample code for the terminal
+
 1. you must run on local server 127.0.0.1- dont just click index
 
 2. you must enable bluetooth on the webbrowser
