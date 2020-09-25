@@ -21,6 +21,9 @@ class BluetoothTerminal {
     this._boundHandleDisconnection = this._handleDisconnection.bind(this);
     this._boundHandleCharacteristicValueChanged =
         this._handleCharacteristicValueChanged.bind(this);
+
+    //serviceUuid = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
+    //characteristicUuid  = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
     // Configure with specified parameters.
     this.setServiceUuid(serviceUuid);
     this.setCharacteristicUuid(characteristicUuid);
@@ -250,11 +253,11 @@ class BluetoothTerminal {
         name: 'ESP32'
       }],
       optionalServices: ['6e400001-b5a3-f393-e0a9-e50e24dcca9e',
-      '6e400002-b5a3-f393-e0a9-e50e24dcca9e',
-      '6e400003-b5a3-f393-e0a9-e50e24dcca9e']
+	  0xFFE0
+	  ]
     }).
 	
-	
+ 
 	
 	//services: ['c48e6067-5295-48d3-8d5c-0395f61792b1']
         then((device) => {

@@ -13,8 +13,13 @@
 // https://www.uuidgenerator.net/
 
 #define BLE_NAME "ESP32" //must match filters name in bluetoothterminal.js- navigator.bluetooth.requestDevice
-#define SERVICE_UUID        "6e400001-b5a3-f393-e0a9-e50e24dcca9e" //- must match optional services on navigator.bluetooth.requestDevice
-#define CHARACTERISTIC_UUID "6e400003-b5a3-f393-e0a9-e50e24dcca9e"
+//#define SERVICE_UUID        "6e400001-b5a3-f393-e0a9-e50e24dcca9e" //- must match optional services on navigator.bluetooth.requestDevice
+//#define CHARACTERISTIC_UUID "6e400003-b5a3-f393-e0a9-e50e24dcca9e"
+
+//maintain compatability with HM-10
+BLEUUID  SERVICE_UUID((uint16_t)0xFFE0); // UART service UUID
+BLEUUID CHARACTERISTIC_UUID ((uint16_t)0xFFE1);
+
 /*
  * navigator.bluetooth.requestDevice({
    
