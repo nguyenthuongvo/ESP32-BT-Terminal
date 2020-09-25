@@ -25,7 +25,7 @@ cant filter by uuid
       '6e400003-b5a3-f393-e0a9-e50e24dcca9e']
     }).
 
-names and services must match on esp
+names and services must match on esp arduino sketch-
 
 #define BLE_NAME "ESP32"
 #define SERVICE_UUID        "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
