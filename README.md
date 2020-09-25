@@ -8,7 +8,7 @@ chrome://flags
 3. changes to the web page wont be modified unless
 browser cache is cleared- ctrl+shift+del
 
-4. cd <current directory>
+4. cd current directory
 py -m http.server
 http://127.0.0.1:8000/
 
