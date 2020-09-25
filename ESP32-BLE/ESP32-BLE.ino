@@ -44,14 +44,13 @@ class MyCallbacks: public BLECharacteristicCallbacks {
         for (int i = 0; i < value.length(); i++)
         {
           Serial.print(value[i]);
-          //pCharacteristic->setValue("1");
-          //pCharacteristic->notify();
+          
         }
 
         Serial.println();
         Serial.println("*********");
 
-        pCharacteristic->setValue("Hello");
+        pCharacteristic->setValue(value +"\n"); // must add seperator \n for it to register on BLE terminal
         pCharacteristic->notify();
 
         //pCharacteristic->writeValue(1, 1, true);
