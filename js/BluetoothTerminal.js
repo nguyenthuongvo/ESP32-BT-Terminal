@@ -141,6 +141,8 @@ class BluetoothTerminal {
    *                   rejected if something went wrong
    */
   send(data) {
+	  
+	  
     // Convert data to the string using global object.
     data = String(data || '');
 
@@ -164,6 +166,7 @@ class BluetoothTerminal {
     let promise = this._writeToCharacteristic(this._characteristic, chunks[0]);
 
     // Iterate over chunks if there are more than one of it.
+	
     for (let i = 1; i < chunks.length; i++) {
       // Chain new promise.
       promise = promise.then(() => new Promise((resolve, reject) => {
@@ -178,7 +181,7 @@ class BluetoothTerminal {
             catch(reject);
       }));
     }
-
+ 
     return promise;
   }
 
@@ -242,16 +245,21 @@ class BluetoothTerminal {
    * @private
    */
   _requestBluetoothDevice() {
-    this._log('Requesting bluetooth device...');
-
+    this._log('Requesting bluetooth device... with service1 ' + this._serviceUuid);
+	
     return navigator.bluetooth.requestDevice({
-      filters: [{
+		
+	  filters: [{
         name: 'ESP32'
       }],
       optionalServices: ['6e400001-b5a3-f393-e0a9-e50e24dcca9e',
       '6e400002-b5a3-f393-e0a9-e50e24dcca9e',
       '6e400003-b5a3-f393-e0a9-e50e24dcca9e']
     }).
+	
+	
+	
+	//services: ['c48e6067-5295-48d3-8d5c-0395f61792b1']
         then((device) => {
           this._log('"' + device.name + '" bluetooth device selected');
 
