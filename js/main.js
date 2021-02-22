@@ -28,9 +28,13 @@ const logToTerminal = (message, type = '') => {
   }
 };
 
-// Obtain configured instance.
-// can work this way as well
+/*
+  	UUID: Serial Port               (00001101-0000-1000-8000-00805f9b34fb)
+	UUID: Generic Access Profile    (00001800-0000-1000-8000-00805f9b34fb)
+	UUID: Generic Attribute Profile (00001801-0000-1000-8000-00805f9b34fb)
+*/
 
+// Obtain configured instance.
 
 //var serviveUuid = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 //var characteristicUuid  = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
@@ -39,6 +43,7 @@ var serviveUuid = 0xFFE0
 var characteristicUuid = 0xFFE1
 
 const terminal = new BluetoothTerminal(serviveUuid,characteristicUuid,
+
 '\n','\n');
 
 
