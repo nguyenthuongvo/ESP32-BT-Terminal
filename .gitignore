@@ -66,3 +66,5 @@ typings/
 
 # macOS
 .DS_Store
+ESP32-BLE/.vscode/arduino.json
+ESP32-BLE/.vscode/c_cpp_properties.json
