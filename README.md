@@ -1,3 +1,42 @@
+# Changes
+
+ESP32-BLE.ino as sample code for the terminal
+
+0. go to "chrome://flags/" enable "Experimental Web Platform features"
+
+1. you must run on local server 127.0.0.1- dont just click index
+
+2. you must enable bluetooth on the webbrowser
+chrome://flags
+
+3. changes to the web page wont be modified unless
+browser cache is cleared- Ctrl+F5 or ctrl+shift+del
+
+4. cd current directory
+py -m http.server
+http://127.0.0.1:8000/
+
+5. connecting to BLE-
+cant filter by uuid
+
+    return navigator.bluetooth.requestDevice({
+		
+	  filters: [{
+        name: 'ESP32'
+      }],
+      optionalServices: ['6e400001-b5a3-f393-e0a9-e50e24dcca9e',
+      '6e400002-b5a3-f393-e0a9-e50e24dcca9e',
+      '6e400003-b5a3-f393-e0a9-e50e24dcca9e']
+    }).
+
+names and services must match on esp arduino sketch-
+
+#define BLE_NAME "ESP32"
+#define SERVICE_UUID        "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
+#define CHARACTERISTIC_UUID "6e400003-b5a3-f393-e0a9-e50e24dcca9e
+
+
+
 # Web Bluetooth Terminal
 
 [![NpmVersion](https://img.shields.io/npm/v/web-bluetooth-terminal.svg)](https://www.npmjs.com/package/web-bluetooth-terminal)

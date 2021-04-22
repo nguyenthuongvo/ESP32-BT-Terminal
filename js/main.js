@@ -28,32 +28,28 @@ const logToTerminal = (message, type = '') => {
   }
 };
 
-/*
-  	UUID: Serial Port               (00001101-0000-1000-8000-00805f9b34fb)
-	UUID: Generic Access Profile    (00001800-0000-1000-8000-00805f9b34fb)
-	UUID: Generic Attribute Profile (00001801-0000-1000-8000-00805f9b34fb)
-*/
-
 // Obtain configured instance.
+// can work this way as well
 
-var serviceuuid = "6E400001-B5A3-F393-E0A9-E50E24DCCA9E";
- 
-var CHARACTERISTIC_UUID_RX = "6E400002-B5A3-F393-E0A9-E50E24DCCA9E";
-var CHARACTERISTIC_UUID_TX = "6E400003-B5A3-F393-E0A9-E50E24DCCA9E";
 
-console.log("Service uuid: " + serviceuuid.toLowerCase());
-console.log("CHARACTERISTIC_UUID_RX: " + CHARACTERISTIC_UUID_RX.toLowerCase());
+//var serviveUuid = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
+//var characteristicUuid  = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
 
-const terminal = new BluetoothTerminal(
-    serviceuuid.toLowerCase(),
-    CHARACTERISTIC_UUID_TX.toLowerCase(),
-    CHARACTERISTIC_UUID_RX.toLowerCase(),
+var serviveUuid = 0xFFE0
+var characteristicUuid = 0xFFE1
+
+const terminal = new BluetoothTerminal(serviveUuid,characteristicUuid,
 '\n','\n');
+
+
+//const terminal = new BluetoothTerminal();
 
 // Override `receive` method to log incoming data to the terminal.
 terminal.receive = function(data) {
   logToTerminal(data, 'in');
 };
+
+
 
 // Override default log method to output messages to the terminal and console.
 terminal._log = function(...messages) {
@@ -65,7 +61,8 @@ terminal._log = function(...messages) {
 };
 
 // Implement own send function to log outcoming data to the terminal.
-const send = (data) => {
+const send = (data) => {7
+ 
   terminal.send(data).
       then(() => logToTerminal(data, 'out')).
       catch((error) => logToTerminal(error));
