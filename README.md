@@ -214,7 +214,7 @@ terminal.connect().then(() => {
 terminal.send('Simon says: Hello, world!');
 
 // Disconnect from the connected device.
-terminal.disconnect();
+terminal.disconnect(); 
 ```
 
 ## Contribution
