@@ -1,7 +1,7 @@
 /**
  * Bluetooth Terminal class.
  */
-class BluetoothTerminal {
+ class BluetoothTerminal {
   /**
    * Create preconfigured Bluetooth Terminal instance.
    * @param {!(number|string)} [serviceUuid=0xFFE0] - Service UUID
@@ -22,8 +22,8 @@ class BluetoothTerminal {
     this._boundHandleCharacteristicValueChanged =
         this._handleCharacteristicValueChanged.bind(this);
 
-    //serviceUuid = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
-    //characteristicUuid  = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
+    serviceUuid = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
+    characteristicUuid  = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
     // Configure with specified parameters.
     this.setServiceUuid(serviceUuid);
     this.setCharacteristicUuid(characteristicUuid);
@@ -249,12 +249,12 @@ class BluetoothTerminal {
 	
     return navigator.bluetooth.requestDevice({
 		
-	  filters: [{
+      filters: [{
         name: 'ESP32'
       }],
       optionalServices: ['6e400001-b5a3-f393-e0a9-e50e24dcca9e',
-	  0xFFE0
-	  ]
+      '6e400002-b5a3-f393-e0a9-e50e24dcca9e',
+      '6e400003-b5a3-f393-e0a9-e50e24dcca9e']
     }).
 	
  
