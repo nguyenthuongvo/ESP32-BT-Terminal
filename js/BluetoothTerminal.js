@@ -384,7 +384,8 @@
    * @private
    */
   _writeToCharacteristic(characteristic, data) {
-    return characteristic.writeValue(new TextEncoder().encode(data));
+    let data = new Uint8Array([0x00, 0xb0, 0x4f, 0xc2, 0xab]);
+    return characteristic.writeValue(data);
   }
 
   /**
