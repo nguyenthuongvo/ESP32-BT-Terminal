@@ -24,8 +24,8 @@
     this._boundHandleCharacteristicValueChanged =
         this._handleCharacteristicValueChanged.bind(this);
 
-    serviceUuid = 0xFFE0;
-    characteristicUuid  = 0xFFE1;
+    serviceUuid = 65504;
+    characteristicUuid  = 65505;
     // Configure with specified parameters.
     this.setServiceUuid(serviceUuid);
     this.setCharacteristicUuid(characteristicUuid);
@@ -254,7 +254,7 @@
       filters: [{
         name: 'TranDecor'
       }],
-      optionalServices: [0xFFE0]
+      optionalServices: [65504]
     }).
 	
  
