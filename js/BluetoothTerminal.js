@@ -24,8 +24,8 @@
     this._boundHandleCharacteristicValueChanged =
         this._handleCharacteristicValueChanged.bind(this);
 
-    serviceUuid = 65504;
-    characteristicUuid  = 65505;
+    serviceUuid = '65504';
+    characteristicUuid  = '65505';
     // Configure with specified parameters.
     this.setServiceUuid(serviceUuid);
     this.setCharacteristicUuid(characteristicUuid);
