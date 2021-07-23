@@ -250,41 +250,18 @@
     this._log('Requesting bluetooth device... with service1 ' + this._serviceUuid);
 	
     return navigator.bluetooth.requestDevice({
-		
       filters: [{
         name: 'TranDecor'
-      }],
-      optionalServices: [65504]
-    }).
-	
- 
-	
-	//services: ['c48e6067-5295-48d3-8d5c-0395f61792b1']
-        then((device) => {
-          this._log('"' + device.name + '" bluetooth device selected');
+      }]
+    }).then((device) => {
+        this._log('"' + device.name + '" bluetooth device selected');
 
-          this._device = device; // Remember device.
-          this._device.addEventListener('gattserverdisconnected',
-              this._boundHandleDisconnection);
+        this._device = device; // Remember device.
+        this._device.addEventListener('gattserverdisconnected',
+            this._boundHandleDisconnection);
 
-          return this._device;
-        });
-
-
-    /*
-    return navigator.bluetooth.requestDevice({
-      filters: [{services: [this._serviceUuid]}],
-    }).
-        then((device) => {
-          this._log('"' + device.name + '" bluetooth device selected');
-
-          this._device = device; // Remember device.
-          this._device.addEventListener('gattserverdisconnected',
-              this._boundHandleDisconnection);
-
-          return this._device;
-        });
-   */ 
+        return this._device;
+      });
   }
 
   /**
