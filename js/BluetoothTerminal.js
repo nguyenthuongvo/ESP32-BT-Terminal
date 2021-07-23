@@ -1,6 +1,8 @@
 /**
  * Bluetooth Terminal class.
+ * Base on: https://github.com/loginov-rocks/Web-Bluetooth-Terminal/tree/dev
  */
+
  class BluetoothTerminal {
   /**
    * Create preconfigured Bluetooth Terminal instance.
@@ -22,8 +24,8 @@
     this._boundHandleCharacteristicValueChanged =
         this._handleCharacteristicValueChanged.bind(this);
 
-    serviceUuid = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
-    characteristicUuid  = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
+    serviceUuid = 0xFFE0;
+    characteristicUuid  = 0xFFE1;
     // Configure with specified parameters.
     this.setServiceUuid(serviceUuid);
     this.setCharacteristicUuid(characteristicUuid);
@@ -250,11 +252,9 @@
     return navigator.bluetooth.requestDevice({
 		
       filters: [{
-        name: 'ESP32'
+        name: 'TranDecor'
       }],
-      optionalServices: ['6e400001-b5a3-f393-e0a9-e50e24dcca9e',
-      '6e400002-b5a3-f393-e0a9-e50e24dcca9e',
-      '6e400003-b5a3-f393-e0a9-e50e24dcca9e']
+      optionalServices: [0xFFE0]
     }).
 	
  
