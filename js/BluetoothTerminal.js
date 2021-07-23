@@ -24,8 +24,8 @@
     this._boundHandleCharacteristicValueChanged =
         this._handleCharacteristicValueChanged.bind(this);
 
-    serviceUuid = '65504';
-    characteristicUuid  = '65505';
+    serviceUuid = 65504;
+    characteristicUuid  = 65505;
     // Configure with specified parameters.
     this.setServiceUuid(serviceUuid);
     this.setCharacteristicUuid(characteristicUuid);
@@ -38,14 +38,14 @@
    * @param {!(number|string)} uuid - Service UUID
    */
   setServiceUuid(uuid) {
-    // if (!Number.isInteger(uuid) &&
-    //     !(typeof uuid === 'string' || uuid instanceof String)) {
-    //   throw new Error('UUID type is neither a number nor a string');
-    // }
+    if (!Number.isInteger(uuid) &&
+        !(typeof uuid === 'string' || uuid instanceof String)) {
+      throw new Error('UUID type is neither a number nor a string');
+    }
 
-    // if (!uuid) {
-    //   throw new Error('UUID cannot be a null');
-    // }
+    if (!uuid) {
+      throw new Error('UUID cannot be a null');
+    }
 
     this._serviceUuid = uuid;
   }
@@ -55,14 +55,14 @@
    * @param {!(number|string)} uuid - Characteristic UUID
    */
   setCharacteristicUuid(uuid) {
-    // if (!Number.isInteger(uuid) &&
-    //     !(typeof uuid === 'string' || uuid instanceof String)) {
-    //   throw new Error('UUID type is neither a number nor a string');
-    // }
+    if (!Number.isInteger(uuid) &&
+        !(typeof uuid === 'string' || uuid instanceof String)) {
+      throw new Error('UUID type is neither a number nor a string');
+    }
 
-    // if (!uuid) {
-    //   throw new Error('UUID cannot be a null');
-    // }
+    if (!uuid) {
+      throw new Error('UUID cannot be a null');
+    }
 
     this._characteristicUuid = uuid;
   }
@@ -261,7 +261,9 @@
             this._boundHandleDisconnection);
 
         return this._device;
-      });
+      }).catch(error => {
+        this._log(error);
+      })
   }
 
   /**
