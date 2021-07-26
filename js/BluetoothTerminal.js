@@ -356,11 +356,12 @@
     // Index 0 -> Enable status
     // Index 7 -> LED Pixel Count -> 10 pixels
     // Check commands at: https://gist.github.com/mbullington/37957501a07ad065b67d4e8d39bfe012
-    
+
     var bytesArray = event.target.value;
     var hexString = bytesArray.getUint8(0).toString(16);
     for (var i = 0; i < 11; i ++) {
-      hexString += bytesArray.getUint8(i).toString(16) + "";
+      const byteValue = bytesArray.getUint8(i).toString(16);
+      hexString += (byteValue.length > 1 ? byteValue : "0" + byteValue )  + "";
     }
 
     this.receive(hexString);
