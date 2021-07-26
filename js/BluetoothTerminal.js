@@ -249,9 +249,8 @@
 	
     return navigator.bluetooth.requestDevice({
       filters: [{
-        name: 'TranDecor'
-      }],
-      optionalServices: [65504]
+        name: 'SP110E'
+      }]
     }).then((device) => {
         this._log('"' + device.name + '" bluetooth device selected');
 
@@ -353,22 +352,18 @@
    * @private
    */
   _handleCharacteristicValueChanged(event) {
-	  
-    const value = new TextDecoder().decode(event.target.value);
-
-    for (const c of value) {
-      if (c === this._receiveSeparator) {
-        const data = this._receiveBuffer.trim();
-		
-        this._receiveBuffer = '';
-
-        if (data) {
-          this.receive(data);
-        }
-      } else {
-        this._receiveBuffer += c;
-      }
+    // Get 12 value from command 00000010
+    // Index 0 -> Enable status
+    // Index 7 -> LED Pixel Count -> 10 pixels
+    // Check commands at: https://gist.github.com/mbullington/37957501a07ad065b67d4e8d39bfe012
+    
+    var bytesArray = event.target.value;
+    var hexString = bytesArray.getUint8(0).toString(16);
+    for (var i = 0; i < 11; i ++) {
+      hexString += bytesArray.getUint8(i).toString(16) + "";
     }
+
+    this.receive(hexString);
   }
 
   /**
