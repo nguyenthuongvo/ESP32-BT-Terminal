@@ -359,7 +359,7 @@
 
     var bytesArray = event.target.value;
     var hexString = bytesArray.getUint8(0).toString(16);
-    for (var i = 0; i < 11; i ++) {
+    for (var i = 0; i < 12; i ++) {
       const byteValue = bytesArray.getUint8(i).toString(16);
       hexString += (byteValue.length > 1 ? byteValue : "0" + byteValue )  + "";
     }
