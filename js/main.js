@@ -28,28 +28,18 @@ const logToTerminal = (message, type = '') => {
   }
 };
 
-// Obtain configured instance.
-// can work this way as well
-
-
-//var serviveUuid = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
-//var characteristicUuid  = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
-
-var serviveUuid = 0xFFE0
-var characteristicUuid = 0xFFE1
+var serviveUuid = 65504
+var characteristicUuid = 65505
 
 const terminal = new BluetoothTerminal(serviveUuid,characteristicUuid,
 '\n','\n');
 
 
-//const terminal = new BluetoothTerminal();
 
 // Override `receive` method to log incoming data to the terminal.
 terminal.receive = function(data) {
   logToTerminal(data, 'in');
 };
-
-
 
 // Override default log method to output messages to the terminal and console.
 terminal._log = function(...messages) {
@@ -61,7 +51,7 @@ terminal._log = function(...messages) {
 };
 
 // Implement own send function to log outcoming data to the terminal.
-const send = (data) => {7
+const send = (data) => {
  
   terminal.send(data).
       then(() => logToTerminal(data, 'out')).

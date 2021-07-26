@@ -11,7 +11,7 @@
    * @param {string} [receiveSeparator='\n'] - Receive separator
    * @param {string} [sendSeparator='\n'] - Send separator
    */
-  constructor(serviceUuid = 0xFFE0, characteristicUuid = 0xFFE1,
+  constructor(serviceUuid = 65504, characteristicUuid = 65505,
       receiveSeparator = '\n', sendSeparator = '\n') {
     // Used private variables.
     this._receiveBuffer = ''; // Buffer containing not separated data.
@@ -24,11 +24,9 @@
     this._boundHandleCharacteristicValueChanged =
         this._handleCharacteristicValueChanged.bind(this);
 
-    serviceUuid = 65504;
-    characteristicUuid  = 65505;
     // Configure with specified parameters.
-    this.setServiceUuid(serviceUuid);
-    this.setCharacteristicUuid(characteristicUuid);
+    this.setServiceUuid(65504);
+    this.setCharacteristicUuid(65505);
     this.setReceiveSeparator(receiveSeparator);
     this.setSendSeparator(sendSeparator);
   }
@@ -247,12 +245,13 @@
    * @private
    */
   _requestBluetoothDevice() {
-    this._log('Requesting bluetooth device... with service1 ' + this._serviceUuid);
+    this._log('Requesting bluetooth device... with service: ' + this._serviceUuid);
 	
     return navigator.bluetooth.requestDevice({
       filters: [{
         name: 'TranDecor'
-      }]
+      }],
+      optionalServices: [65504]
     }).then((device) => {
         this._log('"' + device.name + '" bluetooth device selected');
 
@@ -272,7 +271,7 @@
    * @return {Promise}
    * @private
    */
-  _connectDeviceAndCacheCharacteristic(device) {
+   _connectDeviceAndCacheCharacteristic(device) {
     // Check remembered characteristic.
     if (device.gatt.connected && this._characteristic) {
       return Promise.resolve(this._characteristic);
@@ -282,20 +281,16 @@
 
     return device.gatt.connect().
         then((server) => {
-          this._log('GATT server connected', 'Getting service...');
-
-          return server.getPrimaryService(this._serviceUuid);
+          this._log('GATT server connected\n', 'Getting service...');
+          return server.getPrimaryService(65504);
         }).
         then((service) => {
-          this._log('Service found', 'Getting characteristic...' + this._characteristicUuid);
-
-          return service.getCharacteristic(this._characteristicUuid);
+          this._log('Service found\n', 'Getting characteristic: 65505');
+          return service.getCharacteristic(65505);
         }).
         then((characteristic) => {
           this._log('Characteristic found');
-
           this._characteristic = characteristic; // Remember characteristic.
-
           return this._characteristic;
         });
   }
@@ -383,9 +378,13 @@
    * @return {Promise}
    * @private
    */
-  _writeToCharacteristic(characteristic, data) {
-    let data = new Uint8Array([0x00, 0xb0, 0x4f, 0xc2, 0xab]);
-    return characteristic.writeValue(data);
+  _writeToCharacteristic(characteristic, hex) {
+
+    var typedArray = new Uint8Array(hex.match(/[\da-f]{2}/gi).map(function (h) {
+      return parseInt(h, 16)
+    }))
+    return characteristic.writeValue(typedArray.buffer);
+    // return characteristic.writeValue(new TextEncoder().encode(data));
   }
 
   /**
